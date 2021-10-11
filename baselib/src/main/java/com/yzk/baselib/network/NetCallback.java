@@ -2,7 +2,6 @@ package com.yzk.baselib.network;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.yzk.baselib.tools.LogUtil;
@@ -23,15 +22,15 @@ public abstract class NetCallback<T extends ResponseBase> {
             final int resultCode = response.code();
             if (resultCode == 200) {
                 Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                T result = parseObject(response, entityClass);
+                T result = parseObject(response, entityClass, function);
                 handlerResponse(result);
             } else {
                 handlerFailure(resultCode, response.message());
             }
         } catch (final Exception e) {
             //数据解析异常
-            Log.e(TAG, "解析异常：" + e.getMessage());
-            handlerFailure(-200, e.getMessage());
+            LogUtil.w(TAG + " onResponseError：" + e.getMessage());
+            handlerFailure(NetConstant.ON_RESPONSE_ERROR, e.getMessage());
 
         } finally {
             if (response.body() != null) {
@@ -41,20 +40,21 @@ public abstract class NetCallback<T extends ResponseBase> {
     }
 
     public void onFailure(Call call, IOException e, String function) {
-        LogUtil.d(TAG + " OKHTTP: \n fail url: " + function + "\n message:" + e.getMessage());
+        LogUtil.d(TAG + " OKHTTP_ERROR: \n fail url: " + function + "\n message:" + e.getMessage());
         //toast net error may be
+        handlerFailure(NetConstant.ON_OKHTTP_REQUEST_ERROR, e.getMessage());
     }
 
-    public T parseObject(Response response, Class<T> entityClass) {
+    public T parseObject(Response response, Class<T> entityClass, String function) {
         try {
             T resObj = null;
             String resString = response.body().string();
-            Log.d(TAG, "result: " + resString + "  time:" + System.currentTimeMillis());
+            LogUtil.all(TAG + " OKHTTP_RESPONSE: \n function:" + function + "\n result:" + resString);
             resObj = JSON.parseObject(resString, entityClass);
             return resObj;
         } catch (Exception e) {
-            handlerFailure(-100, e.getMessage());
-            Log.d(TAG, "解析response: " + e.getMessage());
+            LogUtil.d(TAG + " 转对象失败: " + e.getMessage());
+            handlerFailure(NetConstant.ON_PARSE_OBJECT_ERROR, e.getMessage());
             return null;
         }
     }
