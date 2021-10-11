@@ -1,0 +1,17 @@
+public class Test {
+    public static void main(String[] args) throws IOException {
+
+	//该对象是protobuf生成的
+        PersonEntity.Person.Builder builder = PersonEntity.Person.newBuilder();
+        builder.setId(1);
+        builder.setName("ant");
+        builder.setEmail("ghb@soecode.com");
+        PersonEntity.Person person = builder.build();
+
+	//step1: 将对象转byte数组
+	byte[] byteArray =person.toByteArray();
+	
+	//step2: byte数组转对象
+        Person p2 = Person.parseFrom(byteArray);
+    }
+}

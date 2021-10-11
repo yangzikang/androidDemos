@@ -1,4 +1,4 @@
 rootProject.name = "AndroidDemos"
 include ':app'
 include ':baselib'
-include ':androidbase'
+include ':androidstudy'

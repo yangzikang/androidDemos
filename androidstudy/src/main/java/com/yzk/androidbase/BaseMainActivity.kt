@@ -1,10 +1,12 @@
 package com.yzk.androidbase
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.yzk.androidbase.list.RecyclerActivity
 import com.yzk.androidbase.popupwindow.FullScreenPopupWindow
 import com.yzk.baselib.tools.LogUtil
 
@@ -48,6 +50,10 @@ class BaseMainActivity : AppCompatActivity() {
             screenHeight = dm3.heightPixels
             LogUtil.w("srceenHeight4:$screenHeight") //2160
 
+        }
+
+        findViewById<Button>(R.id.btn_toRecyclerAty).setOnClickListener {
+            startActivity(Intent(this, RecyclerActivity::class.java))
         }
     }
 }

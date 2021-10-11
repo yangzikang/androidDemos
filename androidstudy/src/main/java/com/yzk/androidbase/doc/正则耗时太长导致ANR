@@ -1,0 +1,54 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String s = "Built date:2018/12/16 Service tag:J1KC7T2 Model:7060 MAC:8C-EC-4B-AB-6A-9D CPU:Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz HDD:1000G*1 MEM:16G Express Service Code:41453492870 Order Numbe:480935822";
+        String trimString = s.replace(" ","");
+        
+        long oldTime = System.currentTimeMillis();
+        boolean oldResult = oldUrlValidate(trimString);
+        System.out.println("老正则：" + (System.currentTimeMillis() - oldTime) + "造成anr");
+        
+        long newTime = System.currentTimeMillis();
+        boolean newResult = newUrlValidate(trimString);
+        System.out.println("新正则：" + (System.currentTimeMillis() - newTime) + "精度丢失");
+        
+        System.out.println(oldResult + " " + newResult);
+    }
+
+    /**
+     * 检查URL是否合法
+     */
+    public static boolean oldUrlValidate(String url) {
+        if (url == null) {
+            return false;
+        }
+        String realurl;
+        realurl = url.substring(0, url.indexOf("#") >= 0 ? url.indexOf("#") : url.length());
+        if (realurl.lastIndexOf("/") == realurl.length() - 1) {
+            realurl = realurl.substring(0, realurl.length() - 1);
+        }
+        Pattern p = Pattern.compile("^(https|http|www|ftp|)?(://)?(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*((:\\d+)?)(/(\\w+(-\\w+)*(\\.(\\w*(-\\w+)*))*))*(\\.?(\\w)*)(\\?)?(((\\w*%)*(\\w*\\?)*(\\w*:)*(\\w*\\+)*(\\w*\\.)*(\\w*&)*(\\w*-)*(\\w*=)*(\\w*%)*(\\w*\\?)*(\\w*:)*(\\w*\\+)*(\\w*\\.)*(\\w*&)*(\\w*-)*(\\w*=)*)*(\\w*)?)$", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(realurl);
+        return m.matches();
+    }
+    
+    /**
+     * 检查URL是否合法
+     */
+    public static boolean newUrlValidate(String url) {
+        if (url == null) {
+            return false;
+        }
+        String realurl;
+        realurl = url.substring(0, url.indexOf("#") >= 0 ? url.indexOf("#") : url.length());
+        if (realurl.lastIndexOf("/") == realurl.length() - 1) {
+            realurl = realurl.substring(0, realurl.length() - 1);
+        }
+        Pattern p = Pattern.compile("^(https|http|www|ftp|)?(://)?[-A-Za-z0-9.]+(:\\d+)?(/[-A-Za-z0-9.]+)*(\\?)?[-A-Za-z0-9.%:+&=]*$", Pattern.CASE_INSENSITIVE); //精度丢失
+        Matcher m = p.matcher(realurl);
+        return m.matches();
+    }
+}

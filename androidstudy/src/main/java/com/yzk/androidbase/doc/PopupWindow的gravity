@@ -1,0 +1,56 @@
+7.0系统上 Android N
+showAtLocation(view, GRAVITY, x, y)后
+PopupWindow.update方法，会调用处理Gravity的函数
+该函数会初始化gravity为 left & top
+导致弹窗出现的位置变化
+
+解决：
+如只涉及到Y轴方向：
+
+if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+    update4AndroidN(y);
+} else {
+    super.update();
+}
+
+/**
+     * android N 上update后gravity消失问题
+     *
+     * @param y y轴距离
+     */
+    private void update4AndroidN(int y) {
+        Object obj = getParam("mDecorView");
+        View decorView = obj instanceof View ? (View) obj : null;
+        if (decorView != null) {
+            WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) decorView.getLayoutParams();
+            if (layoutParams != null && layoutParams.y != y) {
+                layoutParams.y = y;
+                obj = getParam("mWindowManager");
+                WindowManager mWindowManager = obj instanceof WindowManager ? (WindowManager) obj : null;
+                if (mWindowManager != null) {
+                    mWindowManager.updateViewLayout(decorView, layoutParams);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 反射获取对象
+     *
+     * @param paramName 属性名称
+     * @return 属性Obj
+     */
+    private Object getParam(String paramName) {
+        if (TextUtils.isEmpty(paramName)) {
+            return null;
+        }
+        try {
+            Field field = PopupWindow.class.getDeclaredField(paramName);
+            field.setAccessible(true);
+            return field.get(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }

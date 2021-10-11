@@ -1,0 +1,6 @@
+public static List<String> array2List(String[] array){
+    if (array == null) {
+        return null;
+    }
+    return new ArrayList<String>(Arrays.asList(array));
+}

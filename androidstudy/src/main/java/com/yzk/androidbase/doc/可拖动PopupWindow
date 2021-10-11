@@ -1,0 +1,92 @@
+package com.paic.zhifu.wallet.activity.control.widget.webview;
+
+import android.app.Activity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+
+import com.paic.zhifu.wallet.activity.R;
+import com.paic.zhifu.wallet.activity.globaldatainterface.IGlobalAppContainer;
+import com.paic.zhifu.wallet.activity.log.WalletLogger;
+import com.paic.zhifu.wallet.activity.modules.settings.ChangeConfigUtil;
+
+/**
+ * Created by yangzikang on 17/10/24.
+ */
+
+public class FloatButton extends PopupWindow {
+
+    private boolean isConfigDialogShowing = false;
+    private ChangeConfigUtil configDialog;
+    private View rootView;
+
+    public FloatButton(Activity activity, String contentText) {
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+
+        configDialog = new ChangeConfigUtil(IGlobalAppContainer.getInstance().getDataCache().getCurrentRunningActivity());
+        View contentView = LayoutInflater.from(activity).inflate(R.layout.float_view_layout, null);
+        initView(contentView, contentText);
+        setContentView(contentView);
+        setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        rootView = activity.getWindow().getDecorView();
+        IGlobalAppContainer.getMainHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showAtLocation(rootView, Gravity.NO_GRAVITY, 0, 0);
+            }
+        }, 1000);
+    }
+
+    private void initView(View contentView, String contentText) {
+        Button changeMode = contentView.findViewById(R.id.float_view);
+        changeMode.setText(contentText);
+        changeMode.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        update((int)event.getRawX(), (int)event.getRawY(), -1, -1);
+                        break;
+                }
+                return false;
+            }
+        });
+        changeMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isConfigDialogShowing) {
+                    configDialog.dismiss();
+                } else {
+                    configDialog.showConfigDialog();
+                }
+                isConfigDialogShowing = !isConfigDialogShowing;
+            }
+        });
+    }
+
+
+    @Override
+    public void showAtLocation(View parent, int gravity, int x, int y) {
+        try {
+            super.showAtLocation(parent, gravity, x, y);
+        } catch (Exception e) {
+            WalletLogger.d("FloatButton.java " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        try {
+            super.dismiss();
+        } catch (Exception e) {
+            WalletLogger.i("FloatButton.java " + e.getMessage());
+        }
+    }
+}

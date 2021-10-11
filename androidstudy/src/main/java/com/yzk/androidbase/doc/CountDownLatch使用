@@ -1,0 +1,27 @@
+@Test
+    public void testGetData() {
+        final List<String> list = new ArrayList<String>();
+        DataManager dataManager = new DataManager();
+        final CountDownLatch latch = new CountDownLatch(1);
+        dataManager.loadData(new DataManager.OnDataListener() {
+            @Override
+            public void onSuccess(List<String> dataList) {
+                if(dataList != null) {
+                    list.addAll(dataList);
+                }
+                //callback方法执行完毕侯，唤醒测试方法执行线程
+                latch.countDown();
+            }
+
+            @Override
+            public void onFail() {
+            }
+        });
+        try {
+            //测试方法线程会在这里暂停, 直到loadData()方法执行完毕, 才会被唤醒继续执行
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(3, list.size());
+    }

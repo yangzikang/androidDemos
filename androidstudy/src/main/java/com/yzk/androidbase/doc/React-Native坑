@@ -1,0 +1,11 @@
+RN坑记录
+1. ios上<Text>直接设置圆角不生效
+	需要再包一个<View>来设置圆角
+2. Fresco.initialize(this); 提前执行 在native代码的启动中，
+	（Splash onCreate或 Applicaiton onCreate 均不行，
+	会蝴蝶效应导致<Image>控件需要header情况第一次启动失败
+3. Flatlist的renderItem中直接navigation到下一个页面报错，
+	需要再包一个函数组件
+
+
+

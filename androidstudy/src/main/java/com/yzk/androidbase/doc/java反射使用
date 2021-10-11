@@ -1,0 +1,89 @@
+
+    /**
+     * 反射获取对象
+     * @param paramName
+     * @return
+     */
+    private Object getParam(String paramName) {
+        if (TextUtils.isEmpty(paramName)) {
+            return null;
+        }
+        try {
+            Field field = PopupWindow.class.getDeclaredField(paramName);
+            field.setAccessible(true);
+            return field.get(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 反射赋值对象
+     * @param paramName
+     * @param obj
+     */
+    private void setParam(String paramName, Object obj) {
+        if (TextUtils.isEmpty(paramName)) {
+            return;
+        }
+        try {
+            Field field = PopupWindow.class.getDeclaredField(paramName);
+            field.setAccessible(true);
+            field.set(this, obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 反射执行方法
+     * @param methodName
+     * @param args
+     * @return
+     */
+    private Object execMethod(String methodName, Class[] cls, Object[] args) {
+        if (TextUtils.isEmpty(methodName)) {
+            return null;
+        }
+        try {
+            Method method = getMethod(PopupWindow.class, methodName, cls);
+            method.setAccessible(true);
+            return method.invoke(this, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 利用递归找一个类的指定方法，如果找不到，去父亲里面找直到最上层Object对象为止。
+     *
+     * @param clazz
+     *            目标类
+     * @param methodName
+     *            方法名
+     * @param classes
+     *            方法参数类型数组
+     * @return 方法对象
+     * @throws Exception
+     */
+    private Method getMethod(Class clazz, String methodName,
+                             final Class[] classes) throws Exception {
+        Method method = null;
+        try {
+            method = clazz.getDeclaredMethod(methodName, classes);
+        } catch (NoSuchMethodException e) {
+            try {
+                method = clazz.getMethod(methodName, classes);
+            } catch (NoSuchMethodException ex) {
+                if (clazz.getSuperclass() == null) {
+                    return method;
+                } else {
+                    method = getMethod(clazz.getSuperclass(), methodName,
+                            classes);
+                }
+            }
+        }
+        return method;
+    }
