@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:name="com.yzk.baselib.App"
         android:theme="@style/Theme.AndroidDemos">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

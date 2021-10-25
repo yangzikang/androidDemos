@@ -1,5 +1,6 @@
 package com.yzk.baselib.base;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.yzk.baselib.tools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        LogUtil.d("ActivityLifecycle" + " onNewIntent " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LogUtil.d("ActivityLifecycle" + " onRestart " + this.getClass().getSimpleName());
     }
 
     //permission Util

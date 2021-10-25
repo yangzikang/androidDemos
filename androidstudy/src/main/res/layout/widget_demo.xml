@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_right"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#aa550000"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ccc">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/iv_icon"
+            android:text="Widget" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:indeterminateTint="#ff0000"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="刷新"
+                android:padding="5dp"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_device"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="80dip"
+        android:gravity="center"
+        android:horizontalSpacing="4dip"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="4dip" />
+
+</LinearLayout>
+
+<!--
+A RemoteViews object (and, consequently, an App Widget) can support the following layout classes:
+FrameLayout
+LinearLayout
+RelativeLayout
+GridLayout
+And the following widget classes:
+AnalogClock
+Button
+Chronometer
+ImageButton
+ImageView
+ProgressBar
+TextView
+ViewFlipper
+ListView
+GridView
+StackView
+AdapterViewFlipper
+Descendants of these classes are not supported. (不支持这些类的子类)
+-->
