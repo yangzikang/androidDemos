@@ -1,5 +1,5 @@
 adb shell input keyevent 187   //adb模拟keyevent输入
-adb shell dumpsys | grep "Resume"  //获取当前resume的activity
+adb shell dumpsys | grep "ResumedActivity"  //获取当前resume的activity
 
 1.修改为指定分辨率
 adb shell wm size 1136x2480
@@ -11,3 +11,5 @@ java.lang.SecurityException: Must hold permission android.permission.WRITE_SECUR
 设置 -> 开发者选项 -> usb调试(安全模式)
 
 adb reverse tcp:8081 tcp:8081  //tcp端口转发
+adb shell am start -n 包名/activity名
+adb shell dumpsys activity your.package.name //可以获取Fragment栈
