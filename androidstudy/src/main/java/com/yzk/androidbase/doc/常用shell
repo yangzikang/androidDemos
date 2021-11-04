@@ -1,0 +1,22 @@
+grep -E '(替换完成|search4)' 文件  //grep使用正则匹配
+
+
+pattern=`echo "$params" | sed 's/ /|/g'` //替换文字中的" "为"|"
+echo $pattern
+
+if [ "$#" -eq "0" ]  //判断参数个数是否为0
+
+for arg in $*  //遍历所有参数
+do
+done
+
+
+if [ ! -n "$1" ] && [ ! -n "$2" ] //判断参数是否都为空
+then
+    echo "PARAMS IS ALL NULL"
+else
+    echo "PARAMS NOT ALL NULL"
+fi
+
+cd $(cd `dirname $0`; pwd)  //跳转到当前脚本的文件夹
+pbpaste >> $fileName 2>&1 //粘贴板 追加输出 到文件包含错误
