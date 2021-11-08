@@ -4,16 +4,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application>
-        <activity android:name=".list.ListViewActivity"></activity>
+    <application
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".webview.WebViewActivity"></activity>
+        <activity android:name=".list.ListViewActivity" />
         <activity android:name=".list.RecyclerActivity" />
         <activity android:name=".BaseMainActivity" />
-
 
         <receiver android:name=".widget.DemoWidget">
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider" />
+
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.seewo.homewidgets.action.CLICK" />
