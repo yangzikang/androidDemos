@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.yzk.baselib.tools.LogUtil;
+import com.yzk.baselib.tools.MultiScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         LogUtil.d("ActivityLifecycle" + " onRestart " + this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode);
+        MultiScreenUtil.isInMultiWindowMode = isInMultiWindowMode;
     }
 
     //permission Util
