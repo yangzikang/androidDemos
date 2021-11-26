@@ -2,7 +2,15 @@ package com.yzk.baselib.tools;
 
 import android.util.Log;
 
+import com.yzk.baselib.BuildConfig;
+
 public class LogUtil {
+
+    /**
+     * 控制非debug状态展示w/e  build.gradle中的debugger
+     */
+    public static boolean isDebug = BuildConfig.DEBUG;
+
     public static void e(String content) {
         Log.e("yangzikang:", " " + content);
     }
@@ -12,7 +20,21 @@ public class LogUtil {
     }
 
     public static void d(String content) {
-        Log.d("yangzikang:", " " + content);
+        if (isDebug) {
+            Log.d("yangzikang:", " " + content);
+        }
+    }
+
+    public static void i(String content) {
+        if (isDebug) {
+            Log.i("yangzikang:", " " + content);
+        }
+    }
+
+    public static void v(String content) {
+        if (isDebug) {
+            Log.v("yangzikang", " " + content);
+        }
     }
 
     public static void all(String content) {

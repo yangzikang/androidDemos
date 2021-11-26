@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.yzk.androidbase.list.RecyclerActivity
+import com.yzk.androidbase.nightmode.ChangeNightModeActivity
 import com.yzk.androidbase.popupwindow.FullScreenPopupWindow
 import com.yzk.baselib.base.BaseActivity
 import com.yzk.baselib.tools.LogUtil
@@ -55,6 +56,10 @@ class BaseMainActivity : BaseActivity() {
 
         findViewById<Button>(R.id.btn_toRecyclerAty).setOnClickListener {
             startActivity(Intent(this, RecyclerActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btn_toChangeTheme).setOnClickListener {
+            startActivity(Intent(this, ChangeNightModeActivity::class.java))
         }
     }
 }

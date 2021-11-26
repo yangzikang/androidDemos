@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".webview.WebViewActivity"></activity>
+    <application>
+        <activity android:name=".nightmode.ChangeNightModeActivity"></activity>
+        <activity android:name=".webview.WebViewActivity" />
         <activity android:name=".list.ListViewActivity" />
         <activity android:name=".list.RecyclerActivity" />
         <activity android:name=".BaseMainActivity" />

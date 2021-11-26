@@ -2,3 +2,4 @@ rootProject.name = "AndroidDemos"
 include ':app'
 include ':baselib'
 include ':androidstudy'
+include ':thirdpartlib'

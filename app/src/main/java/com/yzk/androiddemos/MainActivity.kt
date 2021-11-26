@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.downloaderexpert.thirdpartlib.LibsActivity
 import com.yzk.androidbase.BaseMainActivity
 import com.yzk.baselib.base.BaseActivity
 
@@ -27,6 +28,11 @@ class MainActivity : BaseActivity() {
                 finish()
                 return
             }
+        }
+
+
+        findViewById<TextView>(R.id.tv_to_third).setOnClickListener {
+            startActivity(Intent(this, LibsActivity::class.java))
         }
     }
 }

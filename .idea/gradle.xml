@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/androidstudy" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baselib" />
+            <option value="$PROJECT_DIR$/thirdpartlib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

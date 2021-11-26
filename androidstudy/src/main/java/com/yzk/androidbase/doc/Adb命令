@@ -13,3 +13,24 @@ java.lang.SecurityException: Must hold permission android.permission.WRITE_SECUR
 adb reverse tcp:8081 tcp:8081  //tcp端口转发
 adb shell am start -n 包名/activity名
 adb shell dumpsys activity your.package.name //可以获取Fragment栈
+
+
+adb tcpip 5555 （端口号）
+adb connect 192.168.1.199:5555 （Android设备IP地址）
+adb disconnect 192.168.1.199:5555
+adb usb 调回usb调试方式
+
+手机直接执行：
+无需数据线，且可解决部分机器在方法1时出现的“unable to connect to 192.168.1.199:5555”错误
+在android设备上安装 “终端模拟器”等类似shell命令工具，使用下面命令（需root权限）：
+复制代码
+(串口调试工具)
+TCP/IP方式：
+setprop service.adb.tcp.port 5555
+stop adbd
+start adbd
+调回usb调试方式：
+setprop service.adb.tcp.port -1
+stop adbd
+start adbd
+
