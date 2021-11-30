@@ -9,7 +9,7 @@
         <activity android:name=".webview.WebViewActivity" />
         <activity android:name=".list.ListViewActivity" />
         <activity android:name=".list.RecyclerActivity" />
-        <activity android:name=".BaseMainActivity" />
+        <activity android:name=".StudyMainActivity" />
 
         <receiver android:name=".widget.DemoWidget">
             <meta-data

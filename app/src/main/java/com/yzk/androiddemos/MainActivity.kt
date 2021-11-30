@@ -3,9 +3,8 @@ package com.yzk.androiddemos
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.downloaderexpert.thirdpartlib.LibsActivity
-import com.yzk.androidbase.BaseMainActivity
+import com.yzk.androidbase.StudyMainActivity
 import com.yzk.baselib.base.BaseActivity
 
 /**
@@ -17,14 +16,14 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<TextView>(R.id.tv_next).setOnClickListener {
-            startActivity(Intent(this, BaseMainActivity::class.java))
+            startActivity(Intent(this, StudyMainActivity::class.java))
             //finish() //Log Tag ActivityLifecycle
         }
 
         if (!this.isTaskRoot && intent != null) {
             val action = intent.action
             if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN == action) {
-                startActivity(Intent(this, BaseMainActivity::class.java))
+                startActivity(Intent(this, StudyMainActivity::class.java))
                 finish()
                 return
             }

@@ -5,17 +5,16 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import com.yzk.androidbase.list.RecyclerActivity
 import com.yzk.androidbase.nightmode.ChangeNightModeActivity
 import com.yzk.androidbase.popupwindow.FullScreenPopupWindow
 import com.yzk.baselib.base.BaseActivity
 import com.yzk.baselib.tools.LogUtil
 
-class BaseMainActivity : BaseActivity() {
+class StudyMainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base_main)
+        setContentView(R.layout.activity_study_main)
 
         findViewById<Button>(R.id.btn_showFullPopup1).setOnClickListener {
             FullScreenPopupWindow(this);
