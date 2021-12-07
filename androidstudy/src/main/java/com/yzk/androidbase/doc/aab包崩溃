@@ -1,0 +1,40 @@
+报错：
+
+打aab包后，在android9.0 vivo nex手机上 崩溃：（apk正常，其他设备正常）
+
+2021-12-06 18:15:20.767 30703-30703/sg.egosoft.vds D/AndroidRuntime: Shutting down VM
+2021-12-06 18:15:20.783 30703-30703/sg.egosoft.vds E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: sg.egosoft.vds, PID: 30703
+    java.lang.UnsatisfiedLinkError: dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/sg.egosoft.vds-WzF9ra_LvMtJeas7YsaCVw==/base.apk"],nativeLibraryDirectories=[/data/app/sg.egosoft.vds-WzF9ra_LvMtJeas7YsaCVw==/lib/arm64, /system/lib64]]] couldn't find "librxffmpeg-core.so"
+        at java.lang.Runtime.loadLibrary0(Runtime.java:1012)
+        at java.lang.System.loadLibrary(System.java:1669)
+        at io.microshow.rxffmpeg.RxFFmpegInvoke.<clinit>(RxFFmpegInvoke.java:20)
+        at io.microshow.rxffmpeg.RxFFmpegInvoke.getInstance(RxFFmpegInvoke.java:36)
+        at org.schabi.newpipe.App.onCreate(App.java:140)
+        at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1158)
+        at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6208)
+        at android.app.ActivityThread.access$1200(ActivityThread.java:236)
+        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1854)
+        at android.os.Handler.dispatchMessage(Handler.java:106)
+        at android.os.Looper.loop(Looper.java:224)
+        at android.app.ActivityThread.main(ActivityThread.java:7070)
+        at java.lang.reflect.Method.invoke(Native Method)
+        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:536)
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:876)
+2021-12-06 18:15:20.822 30703-30749/sg.egosoft.vds W/sg.egosoft.vds: No such thread for suspend: 0x7cf11f3208:SharedPreferencesImpl-load
+
+已经尝试 ：
+1.ndk中abiFilters同时arm64-v8a armeabi-v7a
+2.relinker 集成提前加载
+
+
+最终解决：
+@see https://docs.objectbox.io/android/app-bundle-and-split-apk
+@see https://developer.android.com/guide/app-bundle/configure-base#disable_config_apks
+android下：添加
+bundle {
+        abi {
+            // This property is set to true by default.
+            enableSplit = false
+        }
+    }
