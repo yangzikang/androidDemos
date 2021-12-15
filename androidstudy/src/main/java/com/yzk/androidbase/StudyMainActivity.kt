@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.widget.Button
+import com.yzk.androidbase.broadcast.SendBroadcastActivity
 import com.yzk.androidbase.list.RecyclerActivity
 import com.yzk.androidbase.nightmode.ChangeNightModeActivity
 import com.yzk.androidbase.popupwindow.FullScreenPopupWindow
@@ -59,6 +60,10 @@ class StudyMainActivity : BaseActivity() {
 
         findViewById<Button>(R.id.btn_toChangeTheme).setOnClickListener {
             startActivity(Intent(this, ChangeNightModeActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btn_toBroadcast).setOnClickListener {
+            startActivity(Intent(this, SendBroadcastActivity::class.java))
         }
     }
 }
